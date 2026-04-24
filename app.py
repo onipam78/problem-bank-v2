@@ -571,6 +571,26 @@ def main():
         st.error("❌ st.secrets['ANTHROPIC_API_KEY'] 가 설정되지 않았습니다.")
         st.stop()
 
+    # --- 비밀번호 로그인 ---
+    try:
+        app_password = st.secrets["APP_PASSWORD"]
+    except Exception:
+        st.error("❌ st.secrets['APP_PASSWORD'] 가 설정되지 않았습니다.")
+        st.stop()
+
+    if not st.session_state.get("authed", False):
+        st.subheader("🔒 로그인")
+        with st.form("login_form", clear_on_submit=False):
+            pw = st.text_input("비밀번호", type="password")
+            ok_btn = st.form_submit_button("로그인", type="primary", use_container_width=True)
+        if ok_btn:
+            if pw == app_password:
+                st.session_state["authed"] = True
+                st.rerun()
+            else:
+                st.error("❌ 비밀번호가 틀렸습니다.")
+        st.stop()
+
     # 세션 기본값
     st.session_state.setdefault("school", "초등")
     st.session_state.setdefault("grade", GRADE_OPTIONS["초등"][0])
