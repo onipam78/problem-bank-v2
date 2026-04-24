@@ -1,0 +1,19 @@
+# --- 시크릿 (절대 커밋 금지) ---
+.streamlit/secrets.toml
+.env
+.env*
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+
+# --- macOS ---
+.DS_Store
+
+# --- IDE / 툴 ---
+.claude/
+.vscode/
+.idea/
